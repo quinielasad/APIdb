@@ -12,6 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import check_password
 
 import json,urllib2
 
@@ -38,15 +39,30 @@ def jornada(request):
 	return HttpResponse( request.GET.get("jsoncallback","") + "(" + json.dumps(ret) + ");" , content_type="application/json")
 
 def loginUser(request):
+	ret={}
 	data_in = request.GET.get("data", "no_data")
-	print data_in
-	object_in = {}
+	data = []
 	if data_in != "no_data":
-		object_in = json.loads(data_in)
-	print object_in["username"]
-	data = User.objects.filter( username=object_in["username"])
+		try:
+			object_in = json.loads(data_in)
 
-	ret = {}
-	ret["username"] = data[0].username
+			if object_in["username"]:	
+				data = User.objects.filter( username=object_in["username"])
+				if check_password(object_in["password"], data[0].password ):
+					ret["status"]="OK"
+					ret['message']="Permitir login."
+					ret["datos"] = data[0].username
+				else:
+					ret["status"]="ERROR"
+					ret['message']="El usuario o la password no es valida."
+			else:
+				ret["status"]="ERROR"
+				ret['message']="El usuario no existe."
+		except Exception: 
+			ret["status"]="ERROR"
+			ret['message']="La cadena json esta mal formada."
+	else:
+		ret["status"]="ERROR"
+		ret['message']="El parametro data es obligatorio."	
 
 	return HttpResponse( request.GET.get("jsoncallback","") + "(" + json.dumps(ret) + ");" , content_type="application/json")
