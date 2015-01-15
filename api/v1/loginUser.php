@@ -6,7 +6,7 @@ include_once("../../conexion/conexion.php");
 
 //declaracion de variables
 $data = json_decode($_GET["data"],true);
-$ret = [];
+$ret = array();
 $con = connectDB();
 
 if(isset($data)){
@@ -14,9 +14,9 @@ if(isset($data)){
 	try{
 		$stmt = $con->prepare("SELECT * FROM user where username=:username");
 		$stmt->bindParam(":username", $data["username"]);
-		$stmt->excecute();
+		$stmt->execute();
 
-		$aux=[];
+		$aux = array();
 		foreach ($stmt as $file) {
 			$aux = $file;
 		}
