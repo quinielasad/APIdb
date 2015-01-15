@@ -1,6 +1,6 @@
 <?
 session_start();
-include_once("/conexion/conexion.php");
+include_once("../../conexion/conexion.php");
 
 //funcion para realizar login desde appMovil
 
