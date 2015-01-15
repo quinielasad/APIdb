@@ -6,5 +6,5 @@ $data = json_decode($_GET["data"]);
 
 
 
-echo($data);
+echo($data.username);
 ?>
