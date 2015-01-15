@@ -1,4 +1,10 @@
 <?
 session_start();
-echo("Hello world");
+
+//funcion para realizar login desde appMovil
+$data = json_decode$_GET["data"]);
+
+
+
+echo($data['username']);
 ?>
