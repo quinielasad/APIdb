@@ -5,7 +5,7 @@ include_once("../../conexion/conexion.php");
 //funcion para realizar login desde appMovil
 
 //declaracion de variables
-$data = json_decode($_GET["data"],true);
+$data = json_decode($_GET["data"], true);
 $ret = array();
 $con = connectDB();
 
@@ -28,7 +28,7 @@ if(isset($data)){
 			$ret["estado"]="ERROR";
 			$ret["message"]="Los datos proporcionados no son correctos";
 		}
-		
+		$con = null;
 	}catch(PDOException $e){
 		$ret["estado"]="ERROR";
 		$ret["message"]=$e->getMessage();
@@ -41,5 +41,8 @@ if(isset($data)){
 
 }
 
-echo( $_GET["jsoncallback"] + "(" + json_encode($ret) +");" );
+$json = 
+
+echo( $_GET["jsoncallback"] +  "(" + json_encode($ret) +");" );
+
 ?>
