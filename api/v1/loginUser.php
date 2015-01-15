@@ -41,7 +41,6 @@ if(isset($data)){
 
 }
 
-$json = 
 
 echo( $_GET["jsoncallback"] +  "(" + json_encode($ret) +");" );
 
