@@ -41,7 +41,11 @@ if(isset($data)){
 
 }
 
+if(isset($_GET["jsoncallback"])){
+	echo( $_GET["jsoncallback"] +  "(" + json_encode($ret) +");" );
+}else{
+	echo( json_encode($ret) );
+}
 
-echo( $_GET["jsoncallback"] +  "(" + json_encode($ret) +");" );
 
 ?>
