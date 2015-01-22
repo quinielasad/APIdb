@@ -20,7 +20,7 @@ if(isset($data)){
 		foreach ($stmt as $file) {
 			$aux = $file;
 		}
-		if($data["password"] == $aux["password"]){
+		if($data["password"] == $aux["password"] & isset($aux["password"] )){
 			$ret["estado"]="OK";
 			$ret["message"]="El usuario esta logado.";
 			$ret["data"]=$aux;
